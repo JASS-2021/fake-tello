@@ -20,17 +20,18 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Build Docker Container
+        run: docker build . --tag ghcr.io/jass-2021/fake-tello
       - name: Login to GitHub Container registry
+
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build Docker Container
-        run: docker build . --tag ghcr.io/JASS-2021/fake-tello
+        if: github.ref == 'refs/heads/trunk'
 
       - name: Push Docker Container
-        run: docker push ghcr.io/JASS-2021/fake-tello:latest
+        run: docker push ghcr.io/jass-2021/fake-tello:latest
         if: github.ref == 'refs/heads/trunk'
 
