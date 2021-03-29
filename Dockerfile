@@ -7,5 +7,5 @@ FROM swift:5.3-slim
 WORKDIR /fake-tello
 COPY --from=builder /fake-tello/.build/x86_64-unknown-linux-gnu/release/ .
 ENTRYPOINT ["./fake-tello"]
-CMD ["--host", "127.0.0.1", "--port", "8889"]
+CMD ["--host", "0.0.0.0", "--port", "8889"]
 EXPOSE 8889
